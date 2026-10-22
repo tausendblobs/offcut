@@ -1,12 +1,28 @@
 <p align="center"><img src="docs/banner.png" alt="Offcut"></p>
 
-**Print Then Cut without uploading your artwork.**
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-Everything you upload to Design Space is stored on Cricut's servers, and [their terms](https://cricut.com/en-us/legal) give them wide rights over it. I didn't want my art ending up in AI training, so I made Offcut.
+**Use Print Then Cut and keep your original artwork on your laptop.**
+
+Everything you upload to Design Space is stored on Cricut's servers, and since their [latest terms update](https://cricut.com/en-us/legal) they have wide rights over it. I didn't want my art ending up in AI training, so I made Offcut.
 
 Offcut runs in your browser and your artwork never leaves your computer. Design Space only gets plain colored shapes to cut around. Your art goes back in right before you print.
 
 No install, no account, nothing uploaded.
+
+---
+
+## Table of contents
+
+- [How it works](#how-it-works)
+  - [What stays private, and what doesn't](#what-stays-private-and-what-doesnt)
+- [Get started](#get-started)
+- [Step by step](#step-by-step)
+- [Features](#features)
+- [Limits](#limits)
+- [Privacy](#privacy)
+- [Disclaimer](#disclaimer)
+- [License](#license)
 
 ![Offcut with a sheet of stickers on the mat](docs/screenshot.png)
 
