@@ -309,7 +309,7 @@ code{font-family:var(--font-mono);font-size:.92em;background:var(--panel-2);bord
     <section class="card pad">
       <h2>Add to the mat</h2>
       <button class="btn wide primary" id="btnImport">Import art</button>
-      <p class="hint">PNG or JPG come in as stickers: Offcut traces the outline and adds a border. SVG comes in as a plain cut. Set it to Print Then Cut to make it a sticker. You can also drop files on the mat.</p>
+      <p class="hint">PNG and JPG come in as Print Then Cut: Offcut traces the outline and adds a border. SVG comes in as a plain cut. Switch it to Print Then Cut to print it. You can also drop files on the mat.</p>
       <div class="row2"><button class="btn sm" id="btnRect">Rectangle</button><button class="btn sm" id="btnCircle">Circle</button></div>
     </section>
     <section class="card pad grow">
@@ -399,15 +399,15 @@ code{font-family:var(--font-mono);font-size:.92em;background:var(--panel-2);bord
       </div>
 
       <div class="pad stack" data-panel="ptc" hidden>
-        <p class="lead">Design Space gets <b>colored placeholder shapes</b>, never your artwork. Offcut puts the art back on your computer, just before you print.</p>
+        <p class="lead">Design Space only gets <b>colored cut shapes</b>, never your artwork. Offcut adds your art to the PDF you print, right here on your computer.</p>
         <div class="step" id="ptcStep1">
           <div class="sn">1</div>
           <div class="sb">
-            <h4>Save the placeholders</h4>
+            <h4>Save the cut shapes</h4>
             <ul class="chips" id="ptcList"></ul>
             <label class="kv"><span>Paper</span><select id="ptcPaper"><option value="a4">A4</option><option value="letter">US Letter</option></select></label>
             <div class="stack" id="ptcWarn" style="gap:6px"></div>
-            <button class="btn primary wide" id="btnPtcSvg">Save placeholder SVG</button>
+            <button class="btn primary wide" id="btnPtcSvg">Save cut shapes (SVG)</button>
           </div>
         </div>
         <div class="step" id="ptcStep2">
@@ -415,7 +415,7 @@ code{font-family:var(--font-mono);font-size:.92em;background:var(--panel-2);bord
           <div class="sb">
             <h4>Make the print page in Design Space</h4>
             <ol class="steps">
-              <li><b>Upload</b> the placeholder SVG. Check its size reads <b id="ptcSizeRef">—</b>.</li>
+              <li><b>Upload</b> the cut shapes SVG. Check its size reads <b id="ptcSizeRef">—</b>.</li>
               <li>Select all its layers and set <b>Operation</b> to <b>Print Then Cut</b>. With more than one layer, click <b>Flatten</b> so Design Space keeps your layout.</li>
               <li>Click <b>Make It</b>, <b>Continue</b>, then <b>Send to Printer</b>.</li>
               <li>Turn <b>Add Bleed</b> off and <b>Use System Dialog</b> on, then click <b>Print</b>.</li>
@@ -439,7 +439,7 @@ code{font-family:var(--font-mono);font-size:.92em;background:var(--panel-2);bord
             <h4>Print, then cut</h4>
             <button class="btn primary wide" id="btnPtcPdf" disabled>Save print-ready PDF</button>
             <p class="hint" style="margin:0">Print at <b>100% / Actual size</b> on the same paper, with no fit-to-page. Put the sheet on the mat and carry on in Design Space. If you closed it, open the project, click <b>Make It</b> and choose <b>I have already printed</b>.</p>
-            <div class="note">First time? Print on plain paper and let the machine scan the marks before you use sticker paper.</div>
+            <div class="note warn"><b>Test first.</b> Print and cut once on plain paper to check everything lines up before you use your final material.</div>
           </div>
         </div>
       </div>
@@ -1761,11 +1761,11 @@ function updatePtcPanel() {
 function buildPlaceholderSVG() {
   const groups = ensurePtcColors().map(o => ({ o, wp: closedWorld(o) })), b = boundsOf(groups.flatMap(g => g.wp));
   const W = +Math.max(0.1, b.w).toFixed(3), H = +Math.max(0.1, b.h).toFixed(3);
-  const out = [`<svg xmlns="http://www.w3.org/2000/svg" width="${W}mm" height="${H}mm" viewBox="0 0 ${W} ${H}">`, `<title>${esc(state.name)} · Print Then Cut placeholders from Offcut</title>`];
+  const out = [`<svg xmlns="http://www.w3.org/2000/svg" width="${W}mm" height="${H}mm" viewBox="0 0 ${W} ${H}">`, `<title>${esc(state.name)} · Print Then Cut shapes from Offcut</title>`];
   for (const g of groups) out.push(`<path id="${esc(slug(g.o.name))}-${g.o.id}" d="${svgD(g.wp, b.x0, b.y0)}" fill="${ptcHex(g.o.ptcColor)}" fill-rule="evenodd"><title>${esc(g.o.name)}</title></path>`);
   out.push('</svg>'); return out.join('\n');
 }
-$('#btnPtcSvg').onclick = () => { saveFile(slug(state.name) + '-placeholders.svg', buildPlaceholderSVG(), 'image/svg+xml'); ptcSaved = true; updatePtcPanel(); };
+$('#btnPtcSvg').onclick = () => { saveFile(slug(state.name) + '-cut-shapes.svg', buildPlaceholderSVG(), 'image/svg+xml'); ptcSaved = true; updatePtcPanel(); };
 
 function loadScript(src) { return new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = () => res(); s.onerror = () => rej(new Error('Could not load ' + src)); document.head.appendChild(s); }); }
 async function getPdfJs() { if (!window.pdfjsLib) { for (const u of PDFJS_URLS) await loadScript(u); } if (!window.pdfjsLib) throw new Error('no pdf.js'); return window.pdfjsLib; }
@@ -2020,12 +2020,12 @@ async function processPtcFile(file) {
       compose(pg, F, matches); pg.matches = matches;
       for (const m of matches) { total++; if (m.best) { ok++; seen.add(m.best.o.id); if (m.bleed) bleed = true; if (m.resized) resized.push(m); } }
     }
-    if (!total) { st.textContent = ''; notes(rep, [['warn', '<b>No colored shapes found.</b> In Design Space, set the placeholder layers to Print Then Cut, then open the PDF it saves when you print.']]); return; }
+    if (!total) { st.textContent = ''; notes(rep, [['warn', '<b>No colored shapes found.</b> In Design Space, set the cut shape layers to Print Then Cut, then open the PDF it saves when you print.']]); return; }
     ptcResult = { pages, name: file.name };
     pages.forEach((pg, i) => { const b = document.createElement('button'); b.className = 'thumb'; b.setAttribute('aria-label', `Preview page ${i + 1}`); const im = document.createElement('img'); im.alt = `Page ${i + 1}`; im.src = pageThumb(pg.canvas, 236); b.appendChild(im); b.onclick = () => openLightbox(i); thumbs.appendChild(b); });
     thumbs.hidden = false;
     const n = [];
-    n.push(ok === total ? ['ok', `<b>${total === 1 ? 'Your piece matched.' : `All ${total} pieces matched.`}</b> The artwork sits exactly where Design Space printed each shape. Tap the page to check it.`] : ['warn', `<b>${ok} of ${total} shapes matched.</b> The rest will print blank. Check the size in Design Space, save the placeholders again and redo step 2.`]);
+    n.push(ok === total ? ['ok', `<b>${total === 1 ? 'Your piece matched.' : `All ${total} pieces matched.`}</b> The artwork sits exactly where Design Space printed each shape. Tap the page to check it.`] : ['warn', `<b>${ok} of ${total} shapes matched.</b> The rest will print blank. Check the size in Design Space, save the cut shapes again and redo step 2.`]);
     const missing = pieces.filter(o => !seen.has(o.id)).map(o => esc(o.name));
     if (missing.length && ok) n.push(['', `Not in this PDF: ${missing.join(', ')}.`]);
     for (const m of resized) n.push(['warn', `Design Space printed <b>${esc(m.best.o.name)}</b> at ${Math.round(m.artK * 100)}% of its size. Offcut scaled the artwork to match, so print and cut still line up.`]);
@@ -2221,8 +2221,8 @@ $('#dsNotes').addEventListener('click', e => { const b = e.target.closest('[data
 
 /* ============================== machines ============================== */
 const MACHINE_INFO = {
-  explore3: '<h3>Explore 3 and Maker 3</h3><p>Both only take jobs from Design Space, so Offcut does the private part here. Design Space gets plain outlines for cuts and colored placeholders for Print Then Cut, never your artwork.</p><p>Cut area: <b>11.5 × 11.5 in</b> on a 12 × 12 mat, <b>11.5 × 23.5 in</b> on 12 × 24, and <b>11.7 in</b> wide on matless rolls.</p>',
-  cricut: '<h3>Cutting with Design Space</h3><p>Design Space gets plain outlines for cuts and colored placeholders for Print Then Cut, never your artwork.</p><p>The dashed line marks a 0.25 in margin. Check your machine’s own cut area.</p>',
+  explore3: '<h3>Explore 3 and Maker 3</h3><p>Both only take jobs from Design Space, so Offcut does the private part here. Design Space gets plain outlines for cuts and colored cut shapes for Print Then Cut, never your artwork.</p><p>Cut area: <b>11.5 × 11.5 in</b> on a 12 × 12 mat, <b>11.5 × 23.5 in</b> on 12 × 24, and <b>11.7 in</b> wide on matless rolls.</p>',
+  cricut: '<h3>Cutting with Design Space</h3><p>Design Space gets plain outlines for cuts and colored cut shapes for Print Then Cut, never your artwork.</p><p>The dashed line marks a 0.25 in margin. Check your machine’s own cut area.</p>',
   direct: '<h3>Cutting without Design Space</h3><p><b>Maker 1</b> with the open-source <a href="https://virtualabs.github.io/cutcutgo/" target="_blank" rel="noopener">CutCutGo</a> firmware, or any <b>GRBL</b> plotter or drag-knife cutter, cuts straight from Offcut over USB.</p><p>Open the downloaded Offcut.html in Chrome or Edge to connect.</p>'
 };
 function fillMats() {
@@ -2431,9 +2431,9 @@ function sampleSticker() {
 }
 const SAMPLE_HEART = '<svg xmlns="http://www.w3.org/2000/svg" width="44mm" height="40mm" viewBox="0 0 44 40"><path d="M22 38 C 9 28.5 1.5 21 1.5 12.5 C 1.5 6.2 6 1.5 11.6 1.5 C 15.8 1.5 19.5 3.9 22 7.6 C 24.5 3.9 28.2 1.5 32.4 1.5 C 38 1.5 42.5 6.2 42.5 12.5 C 42.5 21 35 28.5 22 38 Z M22 15 C 20 12 16 12 15 14.5 C 14 17 17 20.5 22 24.5 C 27 20.5 30 17 29 14.5 C 28 12 24 12 22 15 Z" fill="#E9B44C" fill-rule="evenodd"/></svg>';
 async function loadSamples() {
-  const st = await importRaster(sampleSticker(), 'Sample sticker', { w0: 62 });
+  const st = await importRaster(sampleSticker(), 'Sample print', { w0: 62 });
   const ht = await importSVG(SAMPLE_HEART, 'Sample heart cut-out');
-  if (st) { st.x = 78; st.y = 86; st.name = 'Sample sticker'; }
+  if (st) { st.x = 78; st.y = 86; st.name = 'Sample print'; }
   if (ht) { ht.x = 196; ht.y = 70; }
   state.objects = [st, ht].filter(Boolean); state.selId = st ? st.id : null; state.isSample = true; $('#sampleNote').hidden = false;
 }

@@ -6,9 +6,9 @@
 
 Everything you upload to Design Space is stored on Cricut's servers, and since their [latest terms update](https://cricut.com/en-us/legal) they have wide rights over it. I didn't want my art ending up in AI training, so I made Offcut.
 
-Offcut runs in your browser. Design Space only gets the outline colored shapes to cut around, and when you print, Offcut swaps in your real artwork. Your art never leaves your computer.
-
-No install, no account, nothing uploaded.
+- Runs in your browser. No install, no account, nothing uploaded.
+- Design Space only gets plain colored shapes to cut around.
+- Your artwork always stays on your computer. Offcut only uses it there to make the PDF you print.
 
 ---
 
@@ -24,18 +24,18 @@ No install, no account, nothing uploaded.
 - [Disclaimer](#disclaimer)
 - [License](#license)
 
-![Offcut with a sheet of stickers on the mat](docs/screenshot.png)
+![Offcut with a sheet of designs on the mat](docs/screenshot.png)
 
 ## How it works
 
-1. **Import your art.** A PNG, JPG or SVG, one sticker or a whole sheet. Offcut traces the cut line for you.
-2. **Save the placeholder.** Each piece becomes a flat colored shape with the same size and outline.
-3. **Upload it to Design Space** and set it to Print Then Cut, like you normally would.
-4. **Save the print page as a PDF** instead of printing it.
-5. **Open that PDF in Offcut.** It swaps the colored shapes for your artwork, lined up exactly.
-6. **Print Offcut's PDF and cut.** The machine reads the marks and cuts around your art.
+1. **Import your art.** A PNG, JPG or SVG, one single design or a whole sheet. Offcut draws the cut line around it.
+2. **Save the cut shapes.** Offcut saves a file with just the outline of each piece, filled with a flat color. There's no artwork in it.
+3. **Upload the shapes to Design Space** and set them to Print Then Cut, like you normally would.
+4. **Save the print page as a PDF** instead of printing it. It has your shapes plus the black marks the machine reads.
+5. **Open that PDF in Offcut.** Offcut replaces each colored shape with your real artwork, in exactly the same spot.
+6. **Print the new PDF and cut.** The machine reads the marks and cuts around your art.
 
-![Your artwork stays in Offcut. Design Space only gets flat placeholder shapes.](docs/what-design-space-sees.png)
+![Your artwork stays in Offcut. Design Space only gets flat colored cut shapes.](docs/what-design-space-sees.png)
 
 ### What stays private, and what doesn't
 
@@ -52,20 +52,23 @@ Projects save automatically in your browser, on your computer. The online versio
 
 ## Step by step
 
+> [!TIP]
+> **Test first.** Print and cut once on plain paper to check everything lines up before you use your final material.
+
 **In Offcut**
 
 1. Set **Machine** to your machine and **Mat** to the mat you'll use.
-2. Click **Import art** and pick a PNG, JPG or SVG. For several stickers, use one file with all of them on it. Offcut traces each piece.
-   - PNG and JPG come in as stickers.
-   - SVG comes in as a plain cut. Click **Print Then Cut** to make it a sticker.
+2. Click **Import art** and pick a PNG, JPG or SVG. For several designs, put them all in one file. Offcut traces each piece.
+   - PNG and JPG come in set to Print Then Cut.
+   - SVG comes in as a plain cut. Click **Print Then Cut** to print it.
 3. Check the size. **W** and **H** show the size of the artwork itself. For PNG and JPG, Offcut reads the size from the file's DPI.
 4. Under **Cut outline**, set the border and smoothing. Tick **Keep inside corners sharp** if you want smooth outer curves but crisp notches.
 5. Want a colored border, or a shape printed in a color? Pick it under **Print color**.
-6. Open the **Print Then Cut** tab, pick your paper and click **Save placeholder SVG**.
+6. Open the **Print Then Cut** tab, pick your paper and click **Save cut shapes (SVG)**.
 
 **In Design Space**
 
-7. Upload the placeholder SVG and check its size matches what Offcut shows.
+7. Upload the cut shapes SVG and check its size matches what Offcut shows.
 8. Select all its layers and set **Operation** to **Print Then Cut**. With more than one layer, click **Flatten** so your layout stays as it is.
 9. Click **Make It**, **Continue**, then **Send to Printer**.
 10. Turn **Add Bleed** off and **Use System Dialog** on, then click **Print**.
@@ -77,22 +80,20 @@ Projects save automatically in your browser, on your computer. The online versio
 13. Click **Save print-ready PDF** and print it at **100% / Actual size**, with no fit-to-page.
 14. Put the sheet on the mat and carry on in Design Space. If you closed it, open the project, click **Make It** and choose **I have already printed**.
 
-First time? Print on plain paper and let the machine scan the marks before you use sticker paper.
-
 ## Features
 
-- Sticker outlines traced from PNG, JPG or SVG: outer edge, one piece or every edge
+- Cut lines traced from PNG, JPG or SVG: outer edge, one piece or every edge
 - Adjustable border, smoothing, and sharp inside corners
 - Print color for borders and shapes, with basic, recent and custom colors
 - SVG art prints at full sharpness
 - Real-size import from the image's DPI
-- Whole sheets of stickers in one go, including rotated copies
+- Whole sheets of designs in one go, including rotated copies
 - Matching that handles bleed and sub-millimeter shifts
 - Plain cuts and pen lines, exported as SVG for Design Space
 - Projects saved in the browser, plus project files for backup
 - Light and dark mode
 
-**Other machines (experimental):** direct cutting over USB for GRBL plotters and a Maker 1 running the open-source [CutCutGo](https://github.com/virtualabs/cutcutgo) firmware, in Chrome or Edge. Explore 3 and Maker 3 only take jobs from Design Space, which is why Offcut uses placeholders for them.
+**Other machines (experimental):** direct cutting over USB for GRBL plotters and a Maker 1 running the open-source [CutCutGo](https://github.com/virtualabs/cutcutgo) firmware, in Chrome or Edge. Explore 3 and Maker 3 only take jobs from Design Space, which is why Offcut sends them cut shapes instead.
 
 ## Limits
 
