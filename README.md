@@ -6,7 +6,7 @@
 
 Everything you upload to Design Space is stored on Cricut's servers, and since their [latest terms update](https://cricut.com/en-us/legal) they have wide rights over it. I didn't want my art ending up in AI training, so I made Offcut.
 
-Offcut runs in your browser and your artwork never leaves your computer. Design Space only gets plain colored shapes to cut around. Your art goes back in right before you print.
+Offcut runs in your browser. Design Space only gets the outline colored shapes to cut around, and when you print, Offcut swaps in your real artwork. Your art never leaves your computer.
 
 No install, no account, nothing uploaded.
 
