@@ -7,7 +7,7 @@ Nothing to install. It opens in your browser.
 
 **Use Print Then Cut and keep your original artwork on your laptop.**
 
-Everything you upload to Design Space is stored on Cricut's servers, and since their [latest terms update](https://cricut.com/en-us/legal) they have wide rights over it. I didn't want my art ending up in AI training, so I made Offcut.
+Everything you upload to Design Space is stored on Cricut's servers. Since their [latest terms update](https://cricut.com/en-us/legal), they can copy, change, share and use everything you upload, even private projects. Forever, without asking you. So I made Offcut.
 
 - Runs in your browser. No install, no account, nothing uploaded.
 - Design Space only gets plain colored shapes to cut around.
