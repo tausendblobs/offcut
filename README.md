@@ -68,7 +68,7 @@ Projects save automatically in your browser, on your computer. The online versio
 **In Design Space**
 
 7. Upload the cut shapes SVG. All your pieces come in as one layer, so your layout stays exactly as you arranged it. Its size is listed under **Show how** in Offcut.
-8. Set its **Operation** to **Print Then Cut**.
+8. It comes in as **Basic Cut**. Change its **Operation** to **Print Then Cut**.
 9. Click **Make It**, **Continue**, then **Send to Printer**.
 10. Turn **Add Bleed** off and **Use System Dialog** on, then click **Print**.
 11. In the print window, save as PDF. On a Mac: **PDF › Save as PDF**. On Windows: **Microsoft Print to PDF**.
@@ -76,8 +76,10 @@ Projects save automatically in your browser, on your computer. The online versio
 **Back in Offcut**
 
 12. Click **Import Design Space PDF**. Offcut shows each match.
-13. Click **Export print-ready PDF** and print it at **100% / Actual size**, with no fit-to-page.
+13. Click **Export print-ready PDF** and print it at **100% scale**, not "Scale to fit". On Windows, choose **Actual size**.
 14. Put the sheet on the mat and carry on in Design Space. If you closed it, open the project, click **Make It** and choose **I have already printed**.
+
+**Printing the same sheet again?** Keep the print-ready PDF and save the project in Design Space. Next time, just print the PDF, open the project in Design Space, click **Make It** and choose **I have already printed**. No need to go through Offcut again.
 
 ## Features
 
@@ -103,7 +105,7 @@ Projects save automatically in your browser, on your computer. The online versio
 - Design Space's Print Then Cut size limits still apply. Offcut shows them as the dashed frame on the paper. Tabloid and A3 need the 12 × 24 in mat and a printer that takes those sizes.
 - Tested with an Explore 3, in Safari on macOS and in Chrome.
 
-This is a personal project. I can't promise support, but issues and fixes are welcome.
+This is a personal project, so I can't promise to answer everything. Bug reports and ideas are welcome under **Issues**.
 
 ## Privacy
 
