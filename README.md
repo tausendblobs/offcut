@@ -2,6 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
+### 👉 [Open Offcut](https://tausendblobs.github.io/offcut/)
+Nothing to install. It opens in your browser.
+
 **Use Print Then Cut and keep your original artwork on your laptop.**
 
 Everything you upload to Design Space is stored on Cricut's servers, and since their [latest terms update](https://cricut.com/en-us/legal) they have wide rights over it. I didn't want my art ending up in AI training, so I made Offcut.
@@ -44,7 +47,7 @@ Everything you upload to Design Space is stored on Cricut's servers, and since t
 
 ## Get started
 
-- **Online:** open the link under **About** on this page.
+- **Online:** go to [tausendblobs.github.io/offcut](https://tausendblobs.github.io/offcut/). Nothing to install.
 - **Offline:** download `index.html` and open it in your browser. Everything works without internet. On a Mac you can drag it to the Dock.
 
 Projects save automatically in your browser, on your computer. The online version and a downloaded copy each keep their own list, so use **Projects › Export project file** to back up or move a project.
